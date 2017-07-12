@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SJ-Stores</string>
+
+    <string-array name="genres">
+        <item>Rock</item>
+        <item>Pop</item>
+    </string-array>
+
+    <string name="bName">Add Artist</string>
+</resources>

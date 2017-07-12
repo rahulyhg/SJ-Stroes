@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/addCustomer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Customer" />
+
+    <Button
+        android:id="@+id/viewCustomers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Customers" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Customer Details" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Total Amount Details" />
+
+</LinearLayout>
