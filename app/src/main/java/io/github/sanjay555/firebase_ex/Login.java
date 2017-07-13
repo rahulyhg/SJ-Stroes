@@ -34,8 +34,8 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                String uname = "";
-                String pass = "";
+                String uname = "psjstores";
+                String pass = "Pramod199";
                 if(uname.equals(userName.getText().toString()) && pass.equals(password.getText().toString())){
                     Toast.makeText(Login.this, "Login Success", Toast.LENGTH_LONG).show();
 

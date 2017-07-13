@@ -107,62 +107,62 @@ public class SingleCustomerActivity extends AppCompatActivity {
         textViewCustomerAddress.setText(address);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-//        Get total purchased amount
-        databaseGetPId.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-//                Double totalPurchaseAmount = 0.0;
-
-                for(DataSnapshot getP_Id : dataSnapshot.getChildren()){
-                    PurchaseDetails purchaseDetails =  getP_Id.getValue(PurchaseDetails.class);
-//                    totalPurchaseAmount = Double.parseDouble( purchaseDetails.getPurchaseAmount());
-                    String p_id;
-                    p_id = purchaseDetails.getPurchaseId();
-
-//                    Get p_amount
-
-                    databaseGetPTotalAmount = FirebaseDatabase.getInstance().getReference("purchaseDetails").child(id).child(p_id);
-
-                    databaseGetPTotalAmount.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-
-                            Double totalPurchaseAmount = 0.0;
-                            for (DataSnapshot totalPAmountDataSnapshot : dataSnapshot.getChildren() ){
-                                PurchaseDetails purchaseDetail = totalPAmountDataSnapshot.getValue(PurchaseDetails.class);
-                                totalPurchaseAmount += Double.parseDouble( purchaseDetail.getPurchaseAmount());
-                            }
-
-                            Toast.makeText(SingleCustomerActivity.this, "ttPamt :" + totalPurchaseAmount, Toast.LENGTH_SHORT).show();
-
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-
-                }
-
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+////        Get total purchased amount
+//        databaseGetPId.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+////                Double totalPurchaseAmount = 0.0;
+//
+//                for(DataSnapshot getP_Id : dataSnapshot.getChildren()){
+//                    PurchaseDetails purchaseDetails =  getP_Id.getValue(PurchaseDetails.class);
+////                    totalPurchaseAmount = Double.parseDouble( purchaseDetails.getPurchaseAmount());
+//                    String p_id;
+//                    p_id = purchaseDetails.getPurchaseId();
+//
+////                    Get p_amount
+//
+//                    databaseGetPTotalAmount = FirebaseDatabase.getInstance().getReference("purchaseDetails").child(id).child(p_id);
+//
+//                    databaseGetPTotalAmount.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                            Double totalPurchaseAmount = 0.0;
+//                            for (DataSnapshot totalPAmountDataSnapshot : dataSnapshot.getChildren() ){
+//                                PurchaseDetails purchaseDetail = totalPAmountDataSnapshot.getValue(PurchaseDetails.class);
+//                                totalPurchaseAmount += Double.parseDouble( purchaseDetail.getPurchaseAmount());
+//                            }
+//
+//                            Toast.makeText(SingleCustomerActivity.this, "ttPamt :" + totalPurchaseAmount, Toast.LENGTH_SHORT).show();
+//
+//
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//
+//
+//                }
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//
 
 
 
@@ -222,5 +222,5 @@ public class SingleCustomerActivity extends AppCompatActivity {
 //
 //                        }
 //                    });
-                }
+//                }
 }

@@ -99,7 +99,7 @@ public class SinglePurchaseDetailsActivity extends AppCompatActivity {
 
 //                Validate
                 if(editTextGivenToday.getText().toString().length() == 0){
-                    Toast.makeText(getApplicationContext(), "Please Enter valid Amount", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Please Enter valid Amount", Toast.LENGTH_SHORT).show();
                 }else {
                     gId = databseaddGivenAmountDetails.push().getKey();
                     String date = dt;
@@ -171,7 +171,7 @@ public class SinglePurchaseDetailsActivity extends AppCompatActivity {
 
                 textViewRemainingAmount.setText(String.valueOf(finalRemainingAmount));
 
-                Toast.makeText(SinglePurchaseDetailsActivity.this, "BAKI :" + finalRemainingAmount, Toast.LENGTH_LONG).show();
+                Toast.makeText(SinglePurchaseDetailsActivity.this, "BAKI :" + finalRemainingAmount, Toast.LENGTH_SHORT).show();
             }
 
             @Override

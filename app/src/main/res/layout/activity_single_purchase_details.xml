@@ -42,8 +42,8 @@
 
     <TextView
         android:id="@+id/textViewPurchaseAmount"
-        android:layout_width="212dp"
-        android:layout_height="53dp"
+        android:layout_width="195dp"
+        android:layout_height="49dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="11dp"
         android:layout_marginRight="8dp"
@@ -76,7 +76,7 @@
         android:layout_marginEnd="13dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Base Amount :"
+        android:text="Purchase Amount :"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -149,10 +149,10 @@
 
     <TextView
         android:id="@+id/textView17"
-        android:layout_width="166dp"
-        android:layout_height="49dp"
+        android:layout_width="126dp"
+        android:layout_height="44dp"
         android:layout_marginTop="22dp"
-        android:text="Remaining Amount :"
+        android:text="BAKI Amount :"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/textView14"
@@ -165,13 +165,16 @@
         android:id="@+id/textViewRemainingAmount"
         android:layout_width="160dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="26dp"
+        android:layout_marginEnd="51dp"
         android:layout_marginTop="21dp"
         android:text="TextView"
         android:textStyle="bold"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPurchaseAmount"
-        tools:layout_constraintRight_creator="1" />
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="51dp"
+        app:layout_constraintRight_toRightOf="@+id/buttonListOfAllGivenAmount"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toRightOf="@+id/textView16" />
 
     <Button
         android:id="@+id/buttonListOfAllGivenAmount"
