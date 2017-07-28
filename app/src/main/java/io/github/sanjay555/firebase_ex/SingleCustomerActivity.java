@@ -22,8 +22,9 @@ import org.w3c.dom.Text;
 public class SingleCustomerActivity extends AppCompatActivity {
 
     String cust_id;
-    String id;
+    String Cid;
 //    String p_id;
+String ttPamt;
 
     Double totalGiveamt = 0.0;
 
@@ -32,12 +33,13 @@ public class SingleCustomerActivity extends AppCompatActivity {
     TextView textViewCustomerLName;
     TextView textViewCustomerAddress;
     TextView textViewRemainingAmount;
+    TextView txtToatlGivenAmt;
 
     Button addnewPurchase;
     Button viewAllPurchages;
 
 
-    DatabaseReference databaseGetPId, databaseGivenAmount, databaseGetPTotalAmount;
+    DatabaseReference databaseGetPId,  databaseGivID, databaseCId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class SingleCustomerActivity extends AppCompatActivity {
         textViewCustomerFName = (TextView) findViewById(R.id.textViewFName);
         textViewCustomerLName = (TextView) findViewById(R.id.textViewLName);
         textViewCustomerAddress = (TextView) findViewById(R.id.textViewAddress);
+        txtToatlGivenAmt = (TextView)findViewById(R.id.txtViewTotalBaki);
 
         addnewPurchase = (Button) findViewById(R.id.buttonAddPurchase);
         viewAllPurchages = (Button) findViewById(R.id.buttonViewAllPurchases);
@@ -56,14 +59,17 @@ public class SingleCustomerActivity extends AppCompatActivity {
 //        Intent
         Intent intent = getIntent();
 
-        id = intent.getStringExtra(ViewCustomersList.CUSTOMER_ID);
+        Cid = intent.getStringExtra(ViewCustomersList.CUSTOMER_ID); // C_ID
         String fname = intent.getStringExtra(ViewCustomersList.CUSTOMER_FNAME);
         String lname = intent.getStringExtra(ViewCustomersList.CUSTOMER_LNAME);
         String address = intent.getStringExtra(ViewCustomersList.CUSTOMER_ADDRESS);
 
 //        Databsse reference..
 
-        databaseGetPId = FirebaseDatabase.getInstance().getReference("purchaseDetails").child(id);
+        databaseCId = FirebaseDatabase.getInstance().getReference("purchaseDetails").child(Cid); // CId
+//        databaseGivID = FirebaseDatabase.getInstance().getReference("giveamount").child(Cid);
+
+
 
         addnewPurchase.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -101,13 +107,81 @@ public class SingleCustomerActivity extends AppCompatActivity {
         });
 
 //        Now display in textview
-        textViewCustomerId.setText(id);
+        textViewCustomerId.setText(Cid);
         textViewCustomerFName.setText(fname);
         textViewCustomerLName.setText(lname);
         textViewCustomerAddress.setText(address);
+//        txtToatlGivenAmt.setText(" tt" + ttPamt);
+
+
+
+
+        databaseCId.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot custSnapshot : dataSnapshot.getChildren()){
+
+                    PurchaseDetails purchaseDetails = custSnapshot.getValue(PurchaseDetails.class);
+                    ttPamt = purchaseDetails.getPurchaseAmount();
+
+                }
+
+                Toast.makeText(SingleCustomerActivity.this, ttPamt, Toast.LENGTH_SHORT).show();
+                txtToatlGivenAmt.setText(" tt" + ttPamt);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
     }
 
+
+
+
+
+
+
+
+
+
+
 //    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+////        purchase amount
+//        double ttPamt;
+//
+//        databaseGivID.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+////                for (DataSnapshot )
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+
+
+
+
+
+//    }
+
+
+    //    @Override
 //    protected void onStart() {
 //        super.onStart();
 //
@@ -223,4 +297,5 @@ public class SingleCustomerActivity extends AppCompatActivity {
 //                        }
 //                    });
 //                }
+
 }
