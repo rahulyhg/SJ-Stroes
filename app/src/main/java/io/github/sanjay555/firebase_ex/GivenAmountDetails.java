@@ -18,7 +18,7 @@ public class GivenAmountDetails {
 
     }
 
-    public GivenAmountDetails(String givenamountId, String givenGivenamountDate, Double todayGiveAmount){
+    public GivenAmountDetails(String givenGivenamountDate, Double todayGiveAmount){
         this.givenamountId = givenamountId;
         this.givenGivenamountDate = givenGivenamountDate;
         this.todayGiveAmount = todayGiveAmount;

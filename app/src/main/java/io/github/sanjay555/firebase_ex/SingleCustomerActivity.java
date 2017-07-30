@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,18 +21,25 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 public class SingleCustomerActivity extends AppCompatActivity {
 
     String cust_id;
     String Cid;
-//    String p_id;
+    String totalGAMT;
+    String totalPAMT;
+    Double result = 0.0;
+
 
 
     String AllPAmt;
 
-    Double totalGiveamt = 0.0;
+
+    Double ttGAMT = 0.0, ttPamt = 0.0;
+
 
     TextView textViewCustomerId;
     TextView textViewCustomerFName;
@@ -39,12 +47,17 @@ public class SingleCustomerActivity extends AppCompatActivity {
     TextView textViewCustomerAddress;
     TextView textViewRemainingAmount;
     TextView txtToatlGivenAmt;
+    TextView txtBaki;
 
     Button addnewPurchase;
     Button viewAllPurchages;
+    Button btnok;
+    EditText editTextTodayGivenAMT;
+    String gId;
 
 
-    DatabaseReference databaseGetPId,  databaseGivID, databaseCId;
+
+    DatabaseReference databaseGetPId,  databaseGivID, databaseCId, databaseGivenAMT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +69,18 @@ public class SingleCustomerActivity extends AppCompatActivity {
         textViewCustomerLName = (TextView) findViewById(R.id.textViewLName);
         textViewCustomerAddress = (TextView) findViewById(R.id.textViewAddress);
         txtToatlGivenAmt = (TextView)findViewById(R.id.txtViewTotalBaki);
+        txtBaki = (TextView)findViewById(R.id.textViewBaki);
+
+        editTextTodayGivenAMT = (EditText)findViewById(R.id.editTextTodayGivenAMT);
 
         addnewPurchase = (Button) findViewById(R.id.buttonAddPurchase);
         viewAllPurchages = (Button) findViewById(R.id.buttonViewAllPurchases);
+        btnok = (Button)findViewById(R.id.buttonOK);
+
+
+
+
+
 
 
 //        Intent
@@ -72,7 +94,16 @@ public class SingleCustomerActivity extends AppCompatActivity {
 //        Databsse reference..
 
         databaseCId = FirebaseDatabase.getInstance().getReference("purchaseDetails").child(Cid); // CId
-//        databaseGivID = FirebaseDatabase.getInstance().getReference("giveamount").child(Cid);
+//        databaseGetPId = FirebaseDatabase.getInstance().getReference("")
+        databaseGivID = FirebaseDatabase.getInstance().getReference("giveamount").child(Cid);
+        databaseGivenAMT = FirebaseDatabase.getInstance().getReference("giveamount").child(Cid);
+
+        final String dt;
+        Date cal = (Date) Calendar.getInstance().getTime();
+        dt = cal.toLocaleString();
+
+
+
 
 
 
@@ -116,34 +147,69 @@ public class SingleCustomerActivity extends AppCompatActivity {
         textViewCustomerFName.setText(fname);
         textViewCustomerLName.setText(lname);
         textViewCustomerAddress.setText(address);
-//        txtToatlGivenAmt.setText(" tt" + ttPamt);
-
-
 
 
         databaseCId.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Double ttPamt = 0.0;
+
 
               for(DataSnapshot custSnapshot : dataSnapshot.getChildren()){
                     PurchaseDetails purchaseDetails = custSnapshot.getValue(PurchaseDetails.class);
                     ttPamt += Double.parseDouble(purchaseDetails.getPurchaseAmount());
 
                 }
-
-
-
-//                Toast.makeText(SingleCustomerActivity.this, toString() + ttPamt, Toast.LENGTH_SHORT).show();
-
-                String ttPAmt = Double.toString(ttPamt);
-
-                txtToatlGivenAmt.setText(ttPAmt);
+               totalPAMT = Double.toString(ttPamt);
+                txtToatlGivenAmt.setText(totalPAMT);
+//                dispTPAMT(ttPAmt);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+        databaseGivenAMT.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                for(DataSnapshot givenAMTSnapshot : dataSnapshot.getChildren()){
+                    GivenAmountDetails givenAmountDetails = givenAMTSnapshot.getValue(GivenAmountDetails.class);
+                    ttGAMT += givenAmountDetails.getTodayGiveAmount();
+                }
+
+                totalGAMT = Double.toString(ttGAMT);
+//                dispGAMT(totalGAMT);
+                ttBaki(totalPAMT, totalGAMT );
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
+        btnok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String TodayGivenAMT = editTextTodayGivenAMT.getText().toString();
+                if(editTextTodayGivenAMT.getText().toString().length() == 0 && result == 0.0){
+                    Toast.makeText(getApplicationContext(), "Please Enter valid Amount", Toast.LENGTH_SHORT).show();
+                }else {
+                    gId = databaseGivenAMT.push().getKey();
+                    String date = dt;
+                    GivenAmountDetails givenAmountDetails = new GivenAmountDetails(date,Double.parseDouble(TodayGivenAMT));
+
+                    databaseGivenAMT.child(gId).setValue(givenAmountDetails);
+                }
+
+                Toast.makeText(SingleCustomerActivity.this, "GivenAMT" + TodayGivenAMT, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -156,151 +222,19 @@ public class SingleCustomerActivity extends AppCompatActivity {
 
 
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-////        purchase amount
-//        double ttPamt;
-//
-//        databaseGivID.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-////                for (DataSnapshot )
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+    public void ttBaki(String a, String b){
+
+        Double newa = Double.parseDouble(a);
+        Double newb = Double.parseDouble(b);
+        result = newa - newb;
+
+        Toast.makeText(this, "BAKI " + result, Toast.LENGTH_SHORT).show();
+        String baki = Double.toString(result);
+        txtBaki.setText(baki);
+
+    }
 
 
 
-
-
-
-//    }
-
-
-    //    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-////        Get total purchased amount
-//        databaseGetPId.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-////                Double totalPurchaseAmount = 0.0;
-//
-//                for(DataSnapshot getP_Id : dataSnapshot.getChildren()){
-//                    PurchaseDetails purchaseDetails =  getP_Id.getValue(PurchaseDetails.class);
-////                    totalPurchaseAmount = Double.parseDouble( purchaseDetails.getPurchaseAmount());
-//                    String p_id;
-//                    p_id = purchaseDetails.getPurchaseId();
-//
-////                    Get p_amount
-//
-//                    databaseGetPTotalAmount = FirebaseDatabase.getInstance().getReference("purchaseDetails").child(id).child(p_id);
-//
-//                    databaseGetPTotalAmount.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                            Double totalPurchaseAmount = 0.0;
-//                            for (DataSnapshot totalPAmountDataSnapshot : dataSnapshot.getChildren() ){
-//                                PurchaseDetails purchaseDetail = totalPAmountDataSnapshot.getValue(PurchaseDetails.class);
-//                                totalPurchaseAmount += Double.parseDouble( purchaseDetail.getPurchaseAmount());
-//                            }
-//
-//                            Toast.makeText(SingleCustomerActivity.this, "ttPamt :" + totalPurchaseAmount, Toast.LENGTH_SHORT).show();
-//
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//
-//
-//
-//                }
-//
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//        databaseGetPId.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//
-//                for(DataSnapshot purchaseIdDataSnapshot : dataSnapshot.getChildren()){
-//                    //        Inside P_ID(PurchaseID)
-//                    PurchaseDetails purchaseDetails = purchaseIdDataSnapshot.getValue(PurchaseDetails.class);
-//                    p_id =purchaseDetails.getPurchaseId();
-//
-//                    Toast.makeText(SingleCustomerActivity.this, "pid" + p_id, Toast.LENGTH_SHORT).show();
-//
-//
-//                    databaseGivenAmount = FirebaseDatabase.getInstance().getReference("giveamount").child(id).child(p_id);
-//                    databaseGivenAmount.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                            Toast.makeText(SingleCustomerActivity.this, "B-totalGiveamt :" + totalGiveamt, Toast.LENGTH_SHORT).show();
-//
-//
-//                            for (DataSnapshot todayGivenDataSnapshot : dataSnapshot.getChildren()){
-////                                Inside G_ID(GiveID)
-//                                GivenAmountDetails giverAmount = todayGivenDataSnapshot.getValue(GivenAmountDetails.class);
-////                                Add all given amount of a one(2,3,..,n) purchase
-//                                totalGiveamt += giverAmount.getTodayGiveAmount();
-//                            }
-//                            Toast.makeText(SingleCustomerActivity.this, "A-totalGiveamt :" + totalGiveamt, Toast.LENGTH_SHORT).show();
-//
-//                        }
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//                }
-//            }
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//                }
 
 }

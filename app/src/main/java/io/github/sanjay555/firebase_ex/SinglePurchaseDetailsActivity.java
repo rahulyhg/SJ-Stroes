@@ -87,34 +87,34 @@ public class SinglePurchaseDetailsActivity extends AppCompatActivity {
         textViewPurchaseId.setText(pid);
 //        textViewPurchaseAmount.setText(amount);
 
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                get data from editText
-                String todayGivenAmount = editTextGivenToday.getText().toString();
-
-                Toast.makeText(SinglePurchaseDetailsActivity.this, " Rs." + todayGivenAmount, Toast.LENGTH_SHORT).show();
-
-
-//                Validate
-                if(editTextGivenToday.getText().toString().length() == 0){
-                    Toast.makeText(getApplicationContext(), "Please Enter valid Amount", Toast.LENGTH_SHORT).show();
-                }else {
-                    gId = databseaddGivenAmountDetails.push().getKey();
-                    String date = dt;
-                    GivenAmountDetails givenAmountDetails = new GivenAmountDetails(gId, date, Double.parseDouble(todayGivenAmount));
-
-//                    Now set to FBDB ref
-                    databseaddGivenAmountDetails.child(gId).setValue(givenAmountDetails);
-
-                    Toast.makeText(SinglePurchaseDetailsActivity.this, " Given Amount Added Successfully", Toast.LENGTH_SHORT).show();
-
-                }
-                editTextGivenToday.setText("");
-
-            }
-        });
+//        buttonOk.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+////                get data from editText
+//                String todayGivenAmount = editTextGivenToday.getText().toString();
+//
+//                Toast.makeText(SinglePurchaseDetailsActivity.this, " Rs." + todayGivenAmount, Toast.LENGTH_SHORT).show();
+//
+//
+////                Validate
+//                if(editTextGivenToday.getText().toString().length() == 0){
+//                    Toast.makeText(getApplicationContext(), "Please Enter valid Amount", Toast.LENGTH_SHORT).show();
+//                }else {
+//                    gId = databseaddGivenAmountDetails.push().getKey();
+//                    String date = dt;
+//                    GivenAmountDetails givenAmountDetails = new GivenAmountDetails(gId, date, Double.parseDouble(todayGivenAmount));
+//
+////                    Now set to FBDB ref
+//                    databseaddGivenAmountDetails.child(gId).setValue(givenAmountDetails);
+//
+//                    Toast.makeText(SinglePurchaseDetailsActivity.this, " Given Amount Added Successfully", Toast.LENGTH_SHORT).show();
+//
+//                }
+//                editTextGivenToday.setText("");
+//
+//            }
+//        });
 
         buttonViewAllgivenamountlist.setOnClickListener(new View.OnClickListener() {
             @Override
