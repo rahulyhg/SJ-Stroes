@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/textViewFName"
-        android:layout_width="231dp"
-        android:layout_height="60dp"
+        android:layout_width="224dp"
+        android:layout_height="43dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -22,10 +22,10 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_constraintTop_creator="1"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.861"
+        app:layout_constraintHorizontal_bias="0.708"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/textViewLName"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintVertical_bias="0.428" />
 
     <TextView
         android:id="@+id/textViewLName"
@@ -40,7 +40,7 @@
         android:layout_marginRight="16dp"
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toTopOf="@+id/textViewAddress"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="13dp" />
 
     <TextView
         android:id="@+id/textViewAddress"
@@ -56,11 +56,11 @@
         android:textAlignment="textStart"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonAddPurchase"
-        app:layout_constraintHorizontal_bias="0.879"
+        app:layout_constraintHorizontal_bias="0.783"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.308"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
 
@@ -117,8 +117,8 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="9dp"
         android:text="ID :"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -127,7 +127,9 @@
         app:layout_constraintVertical_bias="0.296"
         android:layout_marginStart="16dp"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1" />
 
     <TextView
         android:id="@+id/textViewCustomerId"
@@ -145,7 +147,7 @@
     <TextView
         android:id="@+id/textView11"
         android:layout_width="0dp"
-        android:layout_height="44dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="18dp"
         android:text="F-Name :"
         android:textAlignment="center"
@@ -153,10 +155,15 @@
         tools:layout_constraintRight_creator="1"
         app:layout_constraintRight_toLeftOf="@+id/textViewFName"
         android:layout_marginStart="16dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textViewFName"
-        tools:layout_constraintBaseline_creator="1"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/textViewLName"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintTop_toTopOf="@+id/textViewFName" />
 
     <TextView
         android:id="@+id/textView12"
@@ -166,11 +173,11 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="6dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="15dp"
         android:text="L-Name :"
         android:textAlignment="center"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/textViewLName"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
@@ -181,34 +188,73 @@
         android:id="@+id/textView13"
         android:layout_width="0dp"
         android:layout_height="39dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="23dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="23dp"
         android:text="Address :"
         android:textAlignment="textStart"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textViewAddress"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/textViewAddress"
-        tools:layout_constraintBaseline_creator="1"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        android:layout_marginTop="13dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/txtViewTotalBakii"
+        android:layout_width="0dp"
+        android:layout_height="39dp"
+        android:text="Total P_AMT :"
+        android:textStyle="bold"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toLeftOf="@+id/txtViewTotalBaki"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="21dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtViewTotalBaki"
+        tools:layout_constraintBaseline_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.486" />
 
     <TextView
         android:id="@+id/txtViewTotalBaki"
-        android:layout_width="125dp"
-        android:layout_height="39dp"
-        android:layout_marginBottom="37dp"
-        android:text="Total BAKI Rs.:"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAddPurchase"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="@+id/textView7"
-        app:layout_constraintRight_toLeftOf="@+id/textView8"
-        tools:layout_constraintBottom_creator="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="27dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAddress"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        app:layout_constraintLeft_toLeftOf="@+id/textViewAddress" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="BAKI :"
+        app:layout_constraintRight_toLeftOf="@+id/textView23"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddPurchase"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginTop="39dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtViewTotalBakii" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BAKI"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="21dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editText"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintLeft_toRightOf="@+id/txtViewTotalBakii" />
 
 </android.support.constraint.ConstraintLayout>

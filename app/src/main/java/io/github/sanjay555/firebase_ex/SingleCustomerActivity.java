@@ -19,12 +19,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class SingleCustomerActivity extends AppCompatActivity {
 
     String cust_id;
     String Cid;
 //    String p_id;
-String ttPamt;
+
+
+    String AllPAmt;
 
     Double totalGiveamt = 0.0;
 
@@ -119,15 +124,22 @@ String ttPamt;
         databaseCId.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot custSnapshot : dataSnapshot.getChildren()){
 
+                Double ttPamt = 0.0;
+
+              for(DataSnapshot custSnapshot : dataSnapshot.getChildren()){
                     PurchaseDetails purchaseDetails = custSnapshot.getValue(PurchaseDetails.class);
-                    ttPamt = purchaseDetails.getPurchaseAmount();
+                    ttPamt += Double.parseDouble(purchaseDetails.getPurchaseAmount());
 
                 }
 
-                Toast.makeText(SingleCustomerActivity.this, ttPamt, Toast.LENGTH_SHORT).show();
-                txtToatlGivenAmt.setText(" tt" + ttPamt);
+
+
+//                Toast.makeText(SingleCustomerActivity.this, toString() + ttPamt, Toast.LENGTH_SHORT).show();
+
+                String ttPAmt = Double.toString(ttPamt);
+
+                txtToatlGivenAmt.setText(ttPAmt);
             }
 
             @Override
@@ -140,13 +152,6 @@ String ttPamt;
 
 
     }
-
-
-
-
-
-
-
 
 
 
