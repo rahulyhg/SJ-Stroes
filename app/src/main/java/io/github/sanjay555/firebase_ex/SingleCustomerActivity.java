@@ -5,7 +5,6 @@ package io.github.sanjay555.firebase_ex;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,12 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 
 public class SingleCustomerActivity extends AppCompatActivity {
 
@@ -33,13 +28,9 @@ public class SingleCustomerActivity extends AppCompatActivity {
     String totalPAMT;
     Double result = 0.0;
 
-
-
     String AllPAmt;
 
-
     Double ttGAMT = 0.0, ttPamt = 0.0;
-
 
     TextView textViewCustomerId;
     TextView textViewCustomerFName;
@@ -52,10 +43,9 @@ public class SingleCustomerActivity extends AppCompatActivity {
     Button addnewPurchase;
     Button viewAllPurchages;
     Button btnok;
+    Button buttonViewAllgivenamountlist;
     EditText editTextTodayGivenAMT;
     String gId;
-
-
 
     DatabaseReference databaseGetPId,  databaseGivID, databaseCId, databaseGivenAMT;
 
@@ -74,14 +64,9 @@ public class SingleCustomerActivity extends AppCompatActivity {
         editTextTodayGivenAMT = (EditText)findViewById(R.id.editTextTodayGivenAMT);
 
         addnewPurchase = (Button) findViewById(R.id.buttonAddPurchase);
-        viewAllPurchages = (Button) findViewById(R.id.buttonViewAllPurchases);
+        viewAllPurchages = (Button) findViewById(R.id.buttonListOfAllGivenAmount);
         btnok = (Button)findViewById(R.id.buttonOK);
-
-
-
-
-
-
+        buttonViewAllgivenamountlist = (Button)findViewById(R.id.button2);
 
 //        Intent
         Intent intent = getIntent();
@@ -101,11 +86,6 @@ public class SingleCustomerActivity extends AppCompatActivity {
         final String dt;
         Date cal = (Date) Calendar.getInstance().getTime();
         dt = cal.toLocaleString();
-
-
-
-
-
 
         addnewPurchase.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -149,6 +129,17 @@ public class SingleCustomerActivity extends AppCompatActivity {
         textViewCustomerAddress.setText(address);
 
 
+        buttonViewAllgivenamountlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent
+                Intent intent1 = new Intent(SingleCustomerActivity.this, SingleUserAllGivenAmountList.class);
+                intent1.putExtra("cid", Cid);
+                startActivity(intent1);
+            }
+        });
+
+
         databaseCId.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -190,37 +181,24 @@ public class SingleCustomerActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
         btnok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String TodayGivenAMT = editTextTodayGivenAMT.getText().toString();
-                if(editTextTodayGivenAMT.getText().toString().length() == 0 && result == 0.0){
+                Double todayGAMT = Double.parseDouble(TodayGivenAMT);
+                if(editTextTodayGivenAMT.getText().toString().length() == 0 || result == 0.0 || todayGAMT > result){
                     Toast.makeText(getApplicationContext(), "Please Enter valid Amount", Toast.LENGTH_SHORT).show();
                 }else {
                     gId = databaseGivenAMT.push().getKey();
                     String date = dt;
                     GivenAmountDetails givenAmountDetails = new GivenAmountDetails(date,Double.parseDouble(TodayGivenAMT));
+                    Toast.makeText(SingleCustomerActivity.this, "Amount Added :" + TodayGivenAMT, Toast.LENGTH_SHORT).show();
 
                     databaseGivenAMT.child(gId).setValue(givenAmountDetails);
                 }
-
-                Toast.makeText(SingleCustomerActivity.this, "GivenAMT" + TodayGivenAMT, Toast.LENGTH_SHORT).show();
-
             }
         });
-
-
-
-
     }
-
-
-
 
     public void ttBaki(String a, String b){
 
@@ -231,10 +209,5 @@ public class SingleCustomerActivity extends AppCompatActivity {
         Toast.makeText(this, "BAKI " + result, Toast.LENGTH_SHORT).show();
         String baki = Double.toString(result);
         txtBaki.setText(baki);
-
     }
-
-
-
-
 }

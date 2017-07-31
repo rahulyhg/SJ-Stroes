@@ -34,7 +34,7 @@ public class SingleUserAllGivenAmountList extends AppCompatActivity {
     String c_id = null;
     String p_id = null;
     String fname, lname, address;
-//    Double totalGivenAmount = 0.0;
+
 
     DatabaseReference databaseGivemAmountList, databaseCustomer, databaseToatlGivenAmount;
 
@@ -57,9 +57,9 @@ public class SingleUserAllGivenAmountList extends AppCompatActivity {
         p_id = intent.getStringExtra("pid");
 
 
-        databaseGivemAmountList = FirebaseDatabase.getInstance().getReference("giveamount").child(c_id).child(p_id);
+        databaseGivemAmountList = FirebaseDatabase.getInstance().getReference("giveamount").child(c_id);
         databaseCustomer = FirebaseDatabase.getInstance().getReference("customers").child(c_id);
-        databaseToatlGivenAmount = FirebaseDatabase.getInstance().getReference("giveamount").child(c_id).child(p_id);
+        databaseToatlGivenAmount = FirebaseDatabase.getInstance().getReference("giveamount").child(c_id);
 
         dateList = (ListView)findViewById(R.id.listViewSingleUserAllGivenAmountList);
         giveAmountDateList = new ArrayList<>();
@@ -121,12 +121,9 @@ public class SingleUserAllGivenAmountList extends AppCompatActivity {
                     GivenAmountDetails givenAmountDetails   = givenDataSnapshot.getValue(GivenAmountDetails.class);
 
                     totalGivenAmount += givenAmountDetails.getTodayGiveAmount();
-
-//                    txtTotalGivenAmount.setText(String.valueOf(totalGivenAmount));
                 }
+
                 txtTotalGivenAmount.setText(String.valueOf(totalGivenAmount));
-
-
             }
 
             @Override
