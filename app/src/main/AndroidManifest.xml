@@ -30,7 +30,8 @@
 
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-        <activity android:name=".SinglePurchaseDetailsActivity"></activity>
+        <activity android:name=".SinglePurchaseDetailsActivity" />
+        <activity android:name=".DiplayImage"></activity>
     </application>
 
 </manifest>

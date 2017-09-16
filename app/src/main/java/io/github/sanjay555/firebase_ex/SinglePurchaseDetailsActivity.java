@@ -35,6 +35,21 @@ public class SinglePurchaseDetailsActivity extends AppCompatActivity {
 
     DatabaseReference databseaddGivenAmountDetails, databasePurchaseAmount;
 
+
+    public void displayImage()
+    {
+        buttonViewAllgivenamountlist = (Button)findViewById(R.id.btnViewPurchaseListImage);
+
+        buttonViewAllgivenamountlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SinglePurchaseDetailsActivity.this, DiplayImage.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
 //    Storage reference for view purchase image
 
 
@@ -66,6 +81,10 @@ public class SinglePurchaseDetailsActivity extends AppCompatActivity {
 //        Set values to textView
         textViewPurchasedate.setText(date);
 //        textViewPurchaseId.setText(pid);
+
+        //Display Image Activity
+
+        displayImage();
     }
 
     @Override
